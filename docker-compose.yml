@@ -4,6 +4,7 @@ services:
     image: "caddy"
     ports:
       - "8080:80"
+      - "443:443"
     volumes:
       - "$PWD/html:/var/www/html"
       - "$PWD/Caddyfile:/etc/caddy/Caddyfile"
