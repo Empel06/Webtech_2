@@ -3,7 +3,7 @@ services:
   webserver:
     image: "caddy"
     ports:
-      - "8080:80"
+      - "80:80"
       - "443:443"
     volumes:
       - "$PWD/html:/var/www/html"
@@ -11,10 +11,11 @@ services:
     depends_on:
       - cgi
       - db
+
   cgi:
     build:
       context: "backend"
-      dockerfile: "phpWithPgsql.Dockerfile"
+      dockerfile: "phpWithPgsql.Dockerfile"  # Ensure this Dockerfile sets up PHP with PostgreSQL support
     volumes:
       - "$PWD/html:/var/www/html"
     depends_on:
@@ -22,10 +23,18 @@ services:
   db:
     image: "postgres"
     environment:
-      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: pipikaka
+      POSTGRES_DB: cpu_temperature
+    volumes:
+      - db_data:/var/lib/postgresql/data     # Persist data
+
   adminer:
     image: adminer
     ports:
       - "8888:8080"
     depends_on:
       - db
+
+volumes:
+  db_data:
