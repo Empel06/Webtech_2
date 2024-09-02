@@ -6,17 +6,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="styles.css"> <!-- separate CSS file -->
+  <script>
+    // Function to fetch and display the last value from the database
+    function fetchLastValue() {
+      fetch('last_value.php')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data.error) {
+            document.getElementById('lastValue').textContent = 'Error: ' + data.error;
+          } else {
+            document.getElementById('lastValue').textContent = 'Last Value: ' + (data.value || 'No value available');
+          }
+        })
+        .catch(error => {
+          document.getElementById('lastValue').textContent = 'Fetch Error: ' + error.message;
+        });
+    }
+
+    // Call fetchLastValue every 5 seconds
+    setInterval(fetchLastValue, 5000);
+
+    // Call fetchLastValue once when the page loads
+    window.onload = fetchLastValue;
+  </script>
 </head>
 <body>
 
 <!-- Navbar -->
 <div class="w3-top">
-    <div class="w3-bar w3-black w3-card w3-left-align w3-large">
-      <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-      <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">Home</a>
-      <a href="data.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Data</a>
-      <a href="graph.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Graph</a>
-    </div>
+  <div class="w3-bar w3-black w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">Home</a>
+    <a href="data.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Data</a>
+    <a href="graph.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Graph</a>
+  </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large"></div>
@@ -47,30 +75,6 @@ function myFunction() {
     x.className = x.className.replace(" w3-show", "");
   }
 }
-
-// Fetch and display the last value from the database
-function fetchLastValue() {
-  fetch('last_value.php')
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      if (data.error) {
-        document.getElementById('lastValue').textContent = 'Error: ' + data.error;
-      } else {
-        document.getElementById('lastValue').textContent = 'Last Value: ' + data.value;
-      }
-    })
-    .catch(error => {
-      document.getElementById('lastValue').textContent = 'Fetch Error: ' + error.message;
-    });
-}
-
-// Call the fetchLastValue function when the page loads
-window.onload = fetchLastValue;
 </script>
 
 </body>
