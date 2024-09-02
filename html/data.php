@@ -33,7 +33,7 @@
 </div>
 
 <!-- Footer -->
-<footer class="w3-container w3-dark-grey w3-center w3-opacity w3-padding-64">  
+<footer class="w3-container w3-dark-grey w3-center w3-opacity w3-padding-64">
  <p>© <a href="https://www.instagram.com/emielmangelschots/" target="_blank">Mangelschots Emiel</a></p>
 </footer>
 
@@ -43,7 +43,7 @@ function myFunction() {
   var x = document.getElementById("navDemo");
   if (x.className.indexOf("w3-show") == -1) {
     x.className += " w3-show";
-  } else { 
+  } else {
     x.className = x.className.replace(" w3-show", "");
   }
 }
@@ -51,7 +51,12 @@ function myFunction() {
 // Fetch and display the last value from the database
 function fetchLastValue() {
   fetch('last_value.php')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
     .then(data => {
       if (data.error) {
         document.getElementById('lastValue').textContent = 'Error: ' + data.error;
@@ -60,7 +65,7 @@ function fetchLastValue() {
       }
     })
     .catch(error => {
-      document.getElementById('lastValue').textContent = 'Fetch Error: ' + error;
+      document.getElementById('lastValue').textContent = 'Fetch Error: ' + error.message;
     });
 }
 
