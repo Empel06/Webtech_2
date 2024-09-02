@@ -61,7 +61,7 @@ function fetchLastValue() {
       if (data.error) {
         document.getElementById('lastValue').textContent = 'Error: ' + data.error;
       } else {
-        document.getElementById('lastValue').textContent = 'Last Value: ' + JSON.stringify(data);
+        document.getElementById('lastValue').textContent = 'Last Value: ' + data.value;
       }
     })
     .catch(error => {
