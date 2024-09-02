@@ -1,8 +1,7 @@
-<!-- website.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title> Webtechnology project Data</title>
+  <title>Webtechnology Project Data</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -20,8 +19,7 @@
     </div>
 
   <!-- Navbar on small screens -->
-  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
-  </div>
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large"></div>
 </div>
 
 <!-- Header -->
@@ -29,7 +27,9 @@
   <h1 class="w3-margin w3-jumbo">Data</h1>
 </header>
 
+<!-- Data Display -->
 <div class="w3-container w3-dark-grey w3-center" style="padding:220px 16px">
+  <h2 id="lastValue">Loading...</h2>
 </div>
 
 <!-- Footer -->
@@ -38,7 +38,7 @@
 </footer>
 
 <script>
-// Used to toggle the menu on small screens when clicking on the menu button
+// Function to toggle the menu on small screens
 function myFunction() {
   var x = document.getElementById("navDemo");
   if (x.className.indexOf("w3-show") == -1) {
@@ -47,6 +47,25 @@ function myFunction() {
     x.className = x.className.replace(" w3-show", "");
   }
 }
+
+// Fetch and display the last value from the database
+function fetchLastValue() {
+  fetch('last_value.php')
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        document.getElementById('lastValue').textContent = 'Error: ' + data.error;
+      } else {
+        document.getElementById('lastValue').textContent = 'Last Value: ' + JSON.stringify(data);
+      }
+    })
+    .catch(error => {
+      document.getElementById('lastValue').textContent = 'Fetch Error: ' + error;
+    });
+}
+
+// Call the fetchLastValue function when the page loads
+window.onload = fetchLastValue;
 </script>
 
 </body>
