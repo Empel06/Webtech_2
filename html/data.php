@@ -9,24 +9,28 @@
   <script>
     // Function to fetch and display the last value from the database
     function fetchLastValue() {
-      fetch('last_value.php')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
-          }
-          return response.json();
-        })
-        .then(data => {
-          if (data.error) {
-            document.getElementById('lastValue').textContent = 'Error: ' + data.error;
-          } else {
-            document.getElementById('lastValue').textContent = 'Last Value: ' + (data.value || 'No value available');
-          }
-        })
-        .catch(error => {
-          document.getElementById('lastValue').textContent = 'Fetch Error: ' + error.message;
-        });
-    }
+  fetch('./last_value.php')  // Make sure the URL is correct
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.error) {
+        document.getElementById('lastValue').textContent = 'Error: ' + data.error;
+      } else {
+        document.getElementById('lastValue').textContent = 'Last Value: ' + data.value;
+      }
+    })
+    .catch(error => {
+      document.getElementById('lastValue').textContent = 'Fetch Error: ' + error.message;
+    });
+}
+
+// Call the function on page load
+window.onload = fetchLastValue;
+
 
     // Call fetchLastValue every 5 seconds
     setInterval(fetchLastValue, 5000);
@@ -43,7 +47,7 @@
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
     <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">Home</a>
     <a href="data.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Data</a>
-    <a href="graph.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Graph</a>
+    <a href="about.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Graph</a>
   </div>
 
   <!-- Navbar on small screens -->

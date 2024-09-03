@@ -16,7 +16,7 @@
       <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
       <a href="index.php" class="w3-bar-item w3-button w3-padding-large w3-black">Home</a>
       <a href="data.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Data</a>
-      <a href="graph.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Graph</a>
+      <a href="about.php" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Graph</a>
     </div>
 
   <!-- Navbar on small screens -->
